@@ -29,7 +29,7 @@ scene.lights = []
 
 local_light(pos=vector(0,0,0))
 
-sun = sphere(pos=vector(0,0,0), radius = radius['sun'], color = color.orange, emissive=True)
+sun = sphere(pos=vector(0,0,0), radius = radius['sun'], m = mass['sun'], v = vector(0, 0, 0), color = color.orange, emissive=True)
 
 earth = as_obj(pos = vector(0,0,earth_orbit['r']), radius = radius['earth'], m = mass['earth'], v = vector(earth_orbit['v'], 0, 0), texture={'file':textures.earth}, make_trail = False)
 
@@ -53,5 +53,7 @@ while True:
         
         star.v = star.v + star.a * dt
         star.pos = star.pos + star.v * dt
+    
+    earth.rotate(axis=vector(0, 1, 0), angle=2* pi * dt / 86400)
     scene.center = earth.pos
-
+    local_light(pos=sun.pos)
