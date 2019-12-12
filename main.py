@@ -4,8 +4,8 @@ mass = {'sun': 1.989E30,'earth': 5.972E24, 'mars':6.4169E23, 'halley':2.2E14}
 d_at_perihelion = {'earth': 1.495E11, 'mars':2.279E11, 'halley': 8.7665E10}
 v_at_perihelion = {'earth': 2.9783E4, 'mars':2.4077E4, 'halley': 54563.3}
 
-def G_force(m, pos_vec):
-    return -G * mass['sun'] * m / mag2(pos_vec) * norm(pos_vec)
+def G_force(M,m, pos_vec):
+    return -G * M * m / mag2(pos_vec) * norm(pos_vec)
 
 class as_obj(sphere):
     def kinetic_energy(self):
