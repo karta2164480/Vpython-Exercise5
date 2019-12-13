@@ -33,11 +33,13 @@ sun = sphere(pos=vector(0,0,0), radius = radius['sun'], m = mass['sun'], v = vec
 
 earth = as_obj(pos = vector(0,0,earth_orbit['r']), radius = radius['earth'], m = mass['earth'], v = vector(earth_orbit['v'], 0, 0), texture={'file':textures.earth}, make_trail = False)
 
-moon = as_obj(pos = vector(0, 0, earth_orbit['r'] + moon_orbit['r']), radius = radius['moon'], m = mass['moon'], v = vector(moon_orbit['v'] + earth_orbit['v'], 0, 0))
+moon = as_obj(pos = vector(0, sin(theta), earth_orbit['r'] + moon_orbit['r'] * cos(theta)), radius = radius['moon'], m = mass['moon'], v = vector(moon_orbit['v'] + earth_orbit['v'], 0, 0))
 
+
+direction=arrow(color = color.green)
 
 stars = [moon, earth]
-dt=60
+dt=60*60
 '''
 stars = [earth, mars, halley]
 dt=60*60*6
@@ -54,6 +56,8 @@ while True:
         star.v = star.v + star.a * dt
         star.pos = star.pos + star.v * dt
     
-    earth.rotate(axis=vector(0, 1, 0), angle=2* pi * dt / 86400)
+    #earth.rotate(axis=vector(0, 1, 0), angle=2* pi * dt / 86400)
     scene.center = earth.pos
+    direction.pos = earth.pos
+    direction.axis = vector(6E8, 0, 0)
     local_light(pos=sun.pos)
